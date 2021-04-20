@@ -23,5 +23,5 @@ Sure. Just put them into your shell script and make this script scheduled to lau
 ### Current status
 Repository created.
 
-### 🌎
-[English](README.md) [Chinese (Simplified)](doc/zh-cn/README.md)
+### 🌎 
+[English](/README.md) [中文（简体）](/doc/zh-cn/README.md)
