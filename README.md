@@ -2,9 +2,9 @@
 WillDaemon is a tool to make your git repos or something else from private to public in plan. Make a will when you feels unable to keep yourselves alive.
 
 ## Why this?
-Cuz I felt like I'm now in a very terrible condition, whether my emotion or my physical health.
+Cuz I felt like I'm now in a very terrible condition, whether my emotional or my physical health.
 
-I hope there's only me needs to use this, ur all should keep yourselves happy and healthy.
+I hope there's only I am needed to use this, you all should keep yourselves happy and healthy.
 
 If you can't, at least, make sure once you have gone, your messages could be sent to the most important people for you. This could probably be the only thing you have left on the Earth.
 
@@ -23,5 +23,8 @@ Sure. Just put them into your shell script and make this script scheduled to lau
 ### Current status
 Repository created.
 
+### TODO
+[ ] Basic structure of WillDaemon, including Signup and daemon features.
+
 ### 🌎 
-[English](/README.md) [中文（简体）](/doc/zh-cn/README.md)
+[English](/README.md) | [中文(简体)](/doc/zh-cn/README.md)
