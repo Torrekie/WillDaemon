@@ -60,7 +60,7 @@ int printVersion(bool simple)
   }
   return 0;
 }
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
   PROGRAM_NAME = argv[0];
   if (argc < 2)
