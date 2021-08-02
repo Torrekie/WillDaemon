@@ -60,8 +60,7 @@ namespace LampOpt{
 					int r=i+1;
 					for(;r<argc;r++)if(argv[r][0]=='-')break;
 					for(int j=1;j<strlen(argv[i]);j++){
-						std::string prefix("-");
-						std::string maincommand;
+						std::string prefix("-"),maincommand;
 						maincommand.push_back(argv[i][j]);
 						prefix=prefix+=maincommand;
 						if(Commands.find(prefix)==Commands.end()){
