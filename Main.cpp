@@ -17,15 +17,12 @@ int main(int argc,char *argv[]){
         else if(Ret[i].CommandName=="-r")ClearCache();
         else if(Ret[i].CommandName=="-c"){
             if(AuthFile("config.json")){
-                printf("There is already a config in this directory, do you want to continue (Y/n)?");
-                char option=getchar();
-                while(option!='y'&&option!='Y'&&option!='n'&&option!='N'&&option!='\n')option=getchar();
-                if(option=='n'||option=='N'){
-                    puts("Give up creating configuration files.");
-                    return 0;
-                }else{
+                if(GetYNAnswer("There is already a config in this directory, do you want to continue (Y/n)?")){
                     ClearCache();
                     CreateConfig();
+                }else{
+                    puts("Give up creating configuration files.");
+                    return 0;
                 }
             }
         }else if(Ret[i].CommandName=="-s"){
