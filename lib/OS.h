@@ -6,6 +6,7 @@
 #include<limits.h>
 #include<fstream>
 #include<string>
+#include<iostream>
 #include "jsonxx/json.hpp"
 using namespace std;
 class WDexception:public std::exception{
@@ -18,7 +19,7 @@ class WDexception:public std::exception{
 			return error.c_str();
 		}
 };
-void putl(const char *string){
+inline void putl(const char *string){
     while(*string)putchar(*string++);
 }
 inline string GetAllData(char *FileName){
@@ -44,7 +45,6 @@ bool CheckConfig(){
 	if(Config["Github"]["Token"]==nullptr)throw WDexception("Error:Config doesn't hava key \"Github.Token\"");
 	if(Config["Limit"]==nullptr)throw WDexception("Error:Config doesn't hava key \"Limit\"");
 	if(Config["Limit"]["Time"]==nullptr)throw WDexception("Error:Config doesn't hava key \"Limit.Time\"");
-	if(Config["Limit"]["Sign"]==nullptr)throw WDexception("Error:Config doesn't hava key \"Limit.Sign\"");
 	if(Config["Web"]==nullptr)throw WDexception("Error:Config doesn't hava key \"Web\"");
 	if(Config["Web"]["Open"]==nullptr)throw WDexception("Error:Config doesn't hava key \"Web.Open\"");
 	if(Config["Web"]["Port"]==nullptr)throw WDexception("Error:Config doesn't hava key \"Web.Port\"");
@@ -60,25 +60,64 @@ inline bool GetYNAnswer(char *s){
 	if(option=='n'||option=='N')return false;
 	return true;
 }
+inline string GetStrAnswer(char *s){
+	putl(s);
+	string Ans;
+	cin>>Ans;
+	return Ans;
+}
+inline int GetNumberAnswer(char *s){
+	putl(s);
+	int Ans;
+	scanf("%d",&Ans);
+	return Ans;
+}
 void CreateConfig(){
+	puts("Set your GitHub user information.");
+	string UserName=GetStrAnswer("Please enter your github username:");
+	string Repo=GetStrAnswer("Please enter your github private repository name:");
+	string Token=GetStrAnswer("Please enter your github token:");
+	puts("Configure your preferences.");
+	puts("Please be sure to enter the date in year-month-day format.");
+	string Time=GetStrAnswer("Extending lifetime needs periodically sign-in, set a regular interval.");
+	puts("Finally, lets set a sign-in method that you prefered");
+	bool Web=true,Cli=true;
+	int WebPort=80,CliPort=16384;
+	getchar();
+	if(GetYNAnswer("Would you like to sign in via webpage?"))WebPort=GetNumberAnswer("Set a HTTP port for this.");
+	else Web=false;
+	getchar();
+	if(GetYNAnswer("Would you like to use cli to sign in?"))CliPort=GetNumberAnswer("Set a cli port for this.");
+	else CliPort=false;
 	jsonxx::json Config={
-		"Github",{
-			{"User",""},
-			{"Repo",""},
-			{"Token",""}
+		{
+			"Github",{
+				{"User",UserName},
+				{"Repo",Repo},
+				{"Token",Token}
+			}
 		},
-		"Limit",{
-			{"Time",""},
-			{"Sign",""}
+		{
+			"Limit",{
+				{"Time",Time}
+			}
 		},
-		"Web",{
-			{"Open",true},
-			{"Port",80},
+		{
+			"Web",{
+				{"Open",Web},
+				{"Port",WebPort},
+			}
 		},
-		"Cli",{
-			{"Open",true},
-			{"Port",16384}
+		{
+			"Cli",{
+				{"Open",Cli},
+				{"Port",CliPort}
+			}
 		}
 	};
-	
+	ofstream JSONFileOut;
+	JSONFileOut.open("config.json");
+	JSONFileOut<<Config.dump(' ',4);
+	JSONFileOut.close();
+	puts("Configuration done.");
 }
