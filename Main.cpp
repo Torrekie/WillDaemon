@@ -8,7 +8,6 @@ int main(int argc,char *argv[]){
         "--start","-s",
         "--reset","-r",
         "--create","-c",
-        "--daemonize","-d"
 	};
     vector<LampOpt::CommandRead>Ret=LampOpt::getopt(argc,argv,str);
     for(int i=0;i<Ret.size();++i){
